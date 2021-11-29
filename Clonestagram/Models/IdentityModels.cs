@@ -16,6 +16,8 @@ namespace Clonestagram.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string NameUser { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
