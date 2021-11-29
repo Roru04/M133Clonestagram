@@ -17,9 +17,14 @@ namespace Clonestagram.Models
             return userIdentity;
         }
 
+        //Added Userame
         public string NameUser { get; set; }
     }
 
+
+    /// <summary>
+    /// DataBase connection
+    /// </summary>
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
