@@ -9,6 +9,8 @@
             <h3>@post.ApplicationUserName has posted</h3>
             <h2>@post.Title</h2>
             <p>@post.Content</p>
+            @Html.ActionLink("Like", "Like", "Post", new { id = post.Id }, new { @class = "btn btn-default" })
+            <p>@post.Likes Likes</p>
 
         </div>
     }

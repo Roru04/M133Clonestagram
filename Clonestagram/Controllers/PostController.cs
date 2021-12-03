@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -72,6 +73,25 @@ namespace Clonestagram.Controllers
                 IEnumerable<Post> allPosts = context.Posts.OrderByDescending(p => p.RowVersion).ToList();
                 return View(allPosts);
             }
+        }
+
+        public ActionResult Like(int id)
+        {
+            try
+            {
+                Post postfromDb = db.Posts.Find(id);
+
+                postfromDb.Likes++;
+                db.SaveChanges();
+            }
+            catch(DbUpdateConcurrencyException ex)
+            {
+                DbEntityEntry entity = ex.Entries.Single();
+
+                entity.Reload();
+            }
+
+            return RedirectToAction("ShowPosts");
         }
          
         protected override void Dispose(bool disposing)
