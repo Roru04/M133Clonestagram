@@ -6,7 +6,7 @@
     foreach (Clonestagram.Models.Post post in Model)
     {
         <div class="jumbotron">
-            <h3>@post.ApplicationUserName has posted</h3>
+            <h3>On @post.date.ToString("MM/dd/yyyy") at @post.date.ToString("HH:mm")  @post.ApplicationUserName has posted</h3>
             <h2>@post.Title</h2>
             <p>@post.Content</p>
             @Html.ActionLink("Like", "Like", "Post", new { id = post.Id }, new { @class = "btn btn-default" })

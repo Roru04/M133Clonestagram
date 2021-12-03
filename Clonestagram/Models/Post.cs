@@ -31,5 +31,8 @@ namespace Clonestagram.Models
 
         
         [Timestamp] public Byte[] RowVersion { get; set; }
+
+
+        public DateTime date { get; set; }
     }
 }

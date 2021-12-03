@@ -207,6 +207,10 @@
     <Compile Include="Migrations\202112031101510_sus.Designer.cs">
       <DependentUpon>202112031101510_sus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112031333449_Datetime.cs" />
+    <Compile Include="Migrations\202112031333449_Datetime.Designer.cs">
+      <DependentUpon>202112031333449_Datetime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -306,6 +310,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112031101510_sus.resx">
       <DependentUpon>202112031101510_sus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112031333449_Datetime.resx">
+      <DependentUpon>202112031333449_Datetime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

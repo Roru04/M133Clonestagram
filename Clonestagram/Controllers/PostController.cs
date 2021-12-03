@@ -31,6 +31,7 @@ namespace Clonestagram.Controllers
             postForDb.Content = post.Content;
             postForDb.ApplicationUserId = User.Identity.GetUserId();
             postForDb.ApplicationUserName = User.Identity.GetUserName();
+            postForDb.date = DateTime.Now;
 
             try
             {
@@ -70,7 +71,7 @@ namespace Clonestagram.Controllers
         {
             using(ApplicationDbContext context = new ApplicationDbContext())
             {
-                IEnumerable<Post> allPosts = context.Posts.OrderByDescending(p => p.RowVersion).ToList();
+                IEnumerable<Post> allPosts = context.Posts.OrderByDescending(p => p.date).ToList();
                 return View(allPosts);
             }
         }
