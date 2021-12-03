@@ -15,16 +15,11 @@ namespace Clonestagram.Controllers
 
         [Authorize]
         // GET: Post
-        public ActionResult Index(bool hasPosted = false)
+        public ActionResult Index(bool? hasPosted = null)
         {
             ViewBag.WasPostingSuccess = hasPosted;
-            using (ApplicationDbContext context = new ApplicationDbContext())
-            {
-                string userId = User.Identity.GetUserId();
-                IEnumerable<Post> Posts = context.Posts.Where(f => f.ApplicationUserId == userId).ToList();
-
-                return View(Posts);
-            }
+            Post post = new Post();
+            return View(post);
 
         }
         [HttpPost]
@@ -45,6 +40,7 @@ namespace Clonestagram.Controllers
             {
                 Console.WriteLine(ex.Message);
                 ViewBag.WasPostingSuccess = false;
+                return RedirectToAction("Index", new { hasPosted = false });
             }
             return RedirectToAction("Index", new { hasPosted = true });
         }

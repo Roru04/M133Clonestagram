@@ -183,7 +183,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="fonts\PostController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -194,6 +194,14 @@
     <Compile Include="Migrations\202112030644185_PostAdded.cs" />
     <Compile Include="Migrations\202112030644185_PostAdded.Designer.cs">
       <DependentUpon>202112030644185_PostAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112031019181_required.cs" />
+    <Compile Include="Migrations\202112031019181_required.Designer.cs">
+      <DependentUpon>202112031019181_required.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112031033247_fuf.cs" />
+    <Compile Include="Migrations\202112031033247_fuf.Designer.cs">
+      <DependentUpon>202112031033247_fuf.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -284,6 +292,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112030644185_PostAdded.resx">
       <DependentUpon>202112030644185_PostAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112031019181_required.resx">
+      <DependentUpon>202112031019181_required.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112031033247_fuf.resx">
+      <DependentUpon>202112031033247_fuf.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

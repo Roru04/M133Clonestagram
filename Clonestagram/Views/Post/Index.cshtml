@@ -1,28 +1,50 @@
-﻿@model IEnumerable<Clonestagram.Models.Post>
+﻿@model Clonestagram.Models.Post
 
 
 <h2>UploadPost</h2>
 
 
-@using (Html.BeginForm("Index", "Post", FormMethod.Post, new { enctype = "multipart/formdata" }))
+@using (Html.BeginForm("Index", "Post", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
-    <input type="text" name="title" />
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Title, "Please fill out this field", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
 
-    <textarea name="Content"></textarea>
+    
+    <div class="form-group">
+        
+        @Html.LabelFor(m => m.Content, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
 
-    <input type="submit" value="Posten" />
+            @Html.TextAreaFor(m => m.Content, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Content, "Please fill out this field", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Post" class="btn btn-default" />
+        </div>
+    </div>
+
+
+
 
     if (ViewBag.WasPostingSuccess == true)
     {
-        <p style="background-color:green">Posing was successful</p>
+        <p style="background-color:lightgreen">Posting was successful</p>
     }
+    else if (ViewBag.WasPostingSuccess == false)
+    {
+        <p style="background-color:red">Posting failed please fill out all fields</p>
+    }
+
+
 }
 
-@*@if (Model != null)
-{
-    foreach (Clonestagram.Models.Post post in Model)
-    {
-        <p>@post.Title</p>
-        <p>@post.Content</p>
-    }
-}*@
