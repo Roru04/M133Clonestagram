@@ -16,5 +16,8 @@ namespace Clonestagram.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        //Added Userame
+        public string NameUser { get; set; }
     }
 }
