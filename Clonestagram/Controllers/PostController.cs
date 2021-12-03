@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using static System.Net.WebRequestMethods;
 
 namespace Clonestagram.Controllers
 {
@@ -14,8 +15,9 @@ namespace Clonestagram.Controllers
 
         [Authorize]
         // GET: Post
-        public ActionResult Index()
+        public ActionResult Index(bool hasPosted = false)
         {
+            ViewBag.WasPostingSuccess = hasPosted;
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 string userId = User.Identity.GetUserId();
@@ -42,9 +44,11 @@ namespace Clonestagram.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                ViewBag.WasPostingSuccess = false;
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { hasPosted = true });
         }
+         
         protected override void Dispose(bool disposing)
         {
             if (db != null)

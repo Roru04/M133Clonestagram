@@ -11,13 +11,18 @@
     <textarea name="Content"></textarea>
 
     <input type="submit" value="Posten" />
+
+    if (ViewBag.WasPostingSuccess == true)
+    {
+        <p style="background-color:green">Posing was successful</p>
+    }
 }
 
-@if (Model != null)
+@*@if (Model != null)
 {
     foreach (Clonestagram.Models.Post post in Model)
     {
         <p>@post.Title</p>
         <p>@post.Content</p>
     }
-}
+}*@
