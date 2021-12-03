@@ -62,6 +62,8 @@ namespace Clonestagram.Controllers
             }
            
         }
+
+        [Authorize]
         [HttpGet]
         public ActionResult ShowPosts() 
         {
