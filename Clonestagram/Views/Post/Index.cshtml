@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Clonestagram.Models.Post>
+
+
+<h2>UploadPost</h2>
+
+
+@using (Html.BeginForm("Index", "Post", FormMethod.Post, new { enctype = "multipart/formdata" }))
+{
+    <input type="text" name="title" />
+
+    <textarea name="Content"></textarea>
+
+    <input type="submit" value="Posten" />
+}
+
+@if (Model != null)
+{
+    foreach (Clonestagram.Models.Post post in Model)
+    {
+        <p>@post.Title</p>
+        <p>@post.Content</p>
+    }
+}
