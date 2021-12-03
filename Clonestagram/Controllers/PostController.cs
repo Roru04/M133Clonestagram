@@ -40,9 +40,36 @@ namespace Clonestagram.Controllers
             {
                 Console.WriteLine(ex.Message);
                 ViewBag.WasPostingSuccess = false;
-                return RedirectToAction("Index", new { hasPosted = false });
+                if (ModelState.IsValid)
+                {
+                    return View(post);
+                }
+                else
+                {
+                    return View();
+                }
+               
+                
             }
-            return RedirectToAction("Index", new { hasPosted = true });
+            ViewBag.WasPostingSuccess = true;
+            if (ModelState.IsValid)
+            {
+                return View(post);
+            }
+            else
+            {
+                return View();
+            }
+           
+        }
+        [HttpGet]
+        public ActionResult ShowPosts() 
+        {
+            using(ApplicationDbContext context = new ApplicationDbContext())
+            {
+                IEnumerable<Post> allPosts = context.Posts.OrderByDescending(p => p.RowVersion).ToList();
+                return View(allPosts);
+            }
         }
          
         protected override void Dispose(bool disposing)
