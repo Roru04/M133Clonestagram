@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -30,6 +31,7 @@ namespace Clonestagram.Controllers
             postForDb.Content = post.Content;
             postForDb.ApplicationUserId = User.Identity.GetUserId();
             postForDb.ApplicationUserName = User.Identity.GetUserName();
+            postForDb.date = DateTime.Now;
 
             try
             {
@@ -69,11 +71,39 @@ namespace Clonestagram.Controllers
         {
             using(ApplicationDbContext context = new ApplicationDbContext())
             {
-                IEnumerable<Post> allPosts = context.Posts.OrderByDescending(p => p.RowVersion).ToList();
+                IEnumerable<Post> allPosts = context.Posts.OrderByDescending(p => p.date).ToList();
                 return View(allPosts);
             }
         }
-         
+
+        public ActionResult Like(int id)
+        {
+            try
+            {
+                Post postfromDb = db.Posts.Find(id);
+
+                postfromDb.Likes++;
+                db.SaveChanges();
+            }
+            catch(DbUpdateConcurrencyException ex)
+            {
+                DbEntityEntry entity = ex.Entries.Single();
+
+                entity.Reload();
+            }
+
+            return RedirectToAction("ShowPosts");
+        }
+
+        public ActionResult SortLikes()
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                IEnumerable<Post> allPosts = context.Posts.OrderByDescending(p => p.Likes).ToList();
+                return View("SortedPosts",allPosts);
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (db != null)
