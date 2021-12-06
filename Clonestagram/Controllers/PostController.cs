@@ -94,7 +94,16 @@ namespace Clonestagram.Controllers
 
             return RedirectToAction("ShowPosts");
         }
-         
+
+        public ActionResult SortLikes()
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                IEnumerable<Post> allPosts = context.Posts.OrderByDescending(p => p.Likes).ToList();
+                return View("SortedPosts",allPosts);
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (db != null)

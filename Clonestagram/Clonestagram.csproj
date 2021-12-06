@@ -219,6 +219,10 @@
     <Compile Include="Migrations\202112061406055_luul.Designer.cs">
       <DependentUpon>202112061406055_luul.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112061456217_cleanup.cs" />
+    <Compile Include="Migrations\202112061456217_cleanup.Designer.cs">
+      <DependentUpon>202112061456217_cleanup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -286,6 +290,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Post\Index.cshtml" />
     <Content Include="Views\Post\ShowPosts.cshtml" />
+    <Content Include="Views\Post\SortedPosts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -327,6 +332,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112061406055_luul.resx">
       <DependentUpon>202112061406055_luul.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112061456217_cleanup.resx">
+      <DependentUpon>202112061456217_cleanup.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
