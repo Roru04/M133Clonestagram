@@ -211,6 +211,14 @@
     <Compile Include="Migrations\202112031333449_Datetime.Designer.cs">
       <DependentUpon>202112031333449_Datetime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112061355212_likeUpdated.cs" />
+    <Compile Include="Migrations\202112061355212_likeUpdated.Designer.cs">
+      <DependentUpon>202112061355212_likeUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112061406055_luul.cs" />
+    <Compile Include="Migrations\202112061406055_luul.Designer.cs">
+      <DependentUpon>202112061406055_luul.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -313,6 +321,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112031333449_Datetime.resx">
       <DependentUpon>202112031333449_Datetime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112061355212_likeUpdated.resx">
+      <DependentUpon>202112061355212_likeUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112061406055_luul.resx">
+      <DependentUpon>202112061406055_luul.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
