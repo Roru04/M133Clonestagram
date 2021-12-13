@@ -29,9 +29,9 @@ namespace Clonestagram.Controllers
             Post postForDb = new Post();
             postForDb.Title = post.Title;
             postForDb.Content = post.Content;
+            postForDb.date = DateTime.Now;
             postForDb.ApplicationUserId = User.Identity.GetUserId();
             postForDb.ApplicationUserName = User.Identity.GetUserName();
-            postForDb.date = DateTime.Now;
 
             try
             {

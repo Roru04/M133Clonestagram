@@ -1,0 +1,45 @@
+﻿@model Clonestagram.Models.Comment
+
+
+<h2>UploadPost</h2>
+
+
+@using (Html.BeginForm("NewComment", "Comment", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.ValidationSummary(true, "")
+    <input type="hidden" value="@Model.PostId" />
+    @Html.HiddenFor(m => m.PostId)
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(m => m.CommentContent, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.CommentContent, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.CommentContent, "", new { @class = "text-danger" })
+
+        </div>
+    </div>
+    <br />
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Comment" class="btn btn-default" />
+        </div>
+    </div>
+
+
+
+
+    if (ViewBag.WasPostingSuccess == true)
+    {
+        <p style="background-color:lightgreen">Posting was successful</p>
+    }
+    else if (ViewBag.WasPostingSuccess == false)
+    {
+        <p style="background-color:red">Posting failed please fill out all fields</p>
+    }
+
+
+}
+

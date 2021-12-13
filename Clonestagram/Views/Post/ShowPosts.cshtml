@@ -2,7 +2,7 @@
 
 <h2>ShowPosts</h2>
 <hr />
-<p><a href="/Post/SortLikes" class="btn btn-primary">Sort by likes</a></p>
+<p><a href="/Post/ShowPosts" class="btn btn-primary">Sort by likes</a></p>
 <br />
 <br />
 @if (Model != null)
@@ -13,8 +13,10 @@
             <h3>On @post.date.ToString("MM/dd/yyyy") at @post.date.ToString("HH:mm")  @post.ApplicationUserName has posted</h3>
             <h2>@post.Title</h2>
             <p>@post.Content</p>
-            @Html.ActionLink("Like", "Like", "Post", new { id = post.Id }, new { @class = "btn btn-default"})
-            <p>@post.Likes Likes</p>
+            @Html.ActionLink("Like", "Like", "Post", new { id = post.Id }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Comment", "Index", "Comment", new { id = post.Id }, new { @class = "btn btn-default" })
+            <p>@post.Likes Likes | @post.Comments Comments</p>
+
 
         </div>
     }

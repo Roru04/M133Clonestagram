@@ -23,7 +23,8 @@ namespace Clonestagram.Models
       
         public int Likes { get; set; }
 
-       
+        public int Comments { get; set; }
+
         public string ApplicationUserName { get; set; }
 
         
