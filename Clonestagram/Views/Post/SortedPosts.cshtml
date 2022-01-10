@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Clonestagram.Models.Post>
 
-<h2>ShowPosts</h2>
+<h2>SortedPosts</h2>
 <hr />
 <p><a href="/Post/ShowPosts" class="btn btn-primary">Sort by date</a></p>
 <br />
@@ -9,16 +9,17 @@
 {
     foreach (Clonestagram.Models.Post post in Model)
     {
-<div class="jumbotron">
-    <h3>On @post.date.ToString("MM/dd/yyyy") at @post.date.ToString("HH:mm")  @post.ApplicationUserName has posted</h3>
-    <h2>@post.Title</h2>
-    <p>@post.Content</p>
-    @Html.ActionLink("Like", "Like", "Post", new { id = post.Id }, new { @class = "btn btn-default" })
-    @Html.ActionLink("Comment", "Index", "Comment", new { id = post.Id }, new { @class = "btn btn-default" })
-    <p>@post.Likes Likes | @post.Comments Comments</p>
-   
+        <div class="jumbotron">
+            <h3>On @post.date.ToString("MM/dd/yyyy") at @post.date.ToString("HH:mm")  @post.ApplicationUserName has posted</h3>
+            <h2>@post.Title</h2>
+            <p>@post.Content</p>
+            @Html.ActionLink("Delete", "DeletePost", "Post", new { id = post.Id }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Like", "Like", "Post", new { id = post.Id }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Comment", "Index", "Comment", new { id = post.Id }, new { @class = "btn btn-default" })
+            <p>@post.Likes Likes | @post.Comments Comments</p>
 
-</div>
+
+        </div>
     }
 
 }

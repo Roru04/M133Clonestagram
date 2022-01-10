@@ -10,15 +10,15 @@
 
     foreach (Clonestagram.Models.Comment comment in Model)
     {
-<div class="jumbotron">
-    <h4>On @comment.date.ToString("MM/dd/yyyy") at @comment.date.ToString("HH:mm")  @comment.ApplicationUserName has posted</h4>
+        <div class="jumbotron">
+            <h4>On @comment.date.ToString("MM/dd/yyyy") at @comment.date.ToString("HH:mm")  @comment.ApplicationUserName has posted</h4>
 
-    <p>@comment.CommentContent</p>
+            <p>@comment.CommentContent</p>
 
-    <p class="invisible">@comment.PostId</p>
-    <br /><p>@Html.ActionLink("NewComment", "NewComment", new {  id = comment.PostId })</p>
+            <p class="invisible">@comment.PostId</p>
+            <br /><p>@Html.ActionLink("NewComment", "NewComment", new { id = comment.PostId })</p>
 
-</div>
+        </div>
     }
 
 }

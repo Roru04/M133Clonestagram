@@ -95,6 +95,7 @@ namespace Clonestagram.Controllers
             return RedirectToAction("ShowPosts");
         }
 
+        [HttpGet]
         public ActionResult SortLikes()
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
@@ -102,6 +103,19 @@ namespace Clonestagram.Controllers
                 IEnumerable<Post> allPosts = context.Posts.OrderByDescending(p => p.Likes).ToList();
                 return View("SortedPosts",allPosts);
             }
+        }
+
+
+        [Authorize(Roles = nameof(Role.Administrator))]
+        public ActionResult DeletePost(int id)
+        {
+            Post deletable = db.Posts.First(p => p.Id == id); 
+            
+            db.Posts.Remove(deletable);
+
+            db.SaveChanges();
+
+            return RedirectToAction("ShowPosts");
         }
 
         protected override void Dispose(bool disposing)
@@ -112,5 +126,10 @@ namespace Clonestagram.Controllers
             }
             base.Dispose(disposing);
         }
+
+
     }
+
+    
+
 }

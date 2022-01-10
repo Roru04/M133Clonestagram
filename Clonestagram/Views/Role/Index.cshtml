@@ -1,0 +1,37 @@
+﻿@model List<Clonestagram.Models.UserViewModel>
+
+@using (Html.BeginForm())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    E-Mail
+                </th>
+                <th>Admin</th>
+                <th>ControlManager</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                Clonestagram.Models.UserViewModel user = Model.ElementAt(i);
+                <tr>
+                    <td style="padding-right:20px">@user.Username</td>
+                    @for (int j = 0; j < user.Roles.Count(); j++)
+                    {
+                        Clonestagram.Models.RoleViewModel role = user.Roles.ElementAt(j);
+                        <td>
+                            <input type="hidden" name="userViewModels[@i].UserId" value="@user.UserId" />
+                            <input type="hidden" name="userViewModels[@i].User.Username" value="@user.Username" />
+                            <input type="hidden" name="userViewModels[@i].Roles[@j].RoleId" value="@role.RoleId" />
+                            <input type="checkbox" name="userViewModels[@i].Roles[@j].HasRole" value="true" @Html.Raw(role.HasRole ? "checked" : "") />
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <input type="submit" value="Speichern" />
+}
