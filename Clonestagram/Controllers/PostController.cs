@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,7 @@ namespace Clonestagram.Controllers
     public class PostController : Controller
     {
         public ApplicationDbContext db = new ApplicationDbContext();
+        log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         [Authorize]
         // GET: Post
@@ -41,6 +43,7 @@ namespace Clonestagram.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                _log.Error(ex.Message);
                 ViewBag.WasPostingSuccess = false;
                 if (ModelState.IsValid)
                 {
@@ -56,6 +59,7 @@ namespace Clonestagram.Controllers
             ViewBag.WasPostingSuccess = true;
             if (ModelState.IsValid)
             {
+                _log.Info($"Post with Id {postForDb.Id} created form user {User.Identity.GetUserId()}");
                 return View(post);
             }
             else
@@ -109,9 +113,11 @@ namespace Clonestagram.Controllers
         [Authorize(Roles = nameof(Role.Administrator))]
         public ActionResult DeletePost(int id)
         {
-            Post deletable = db.Posts.First(p => p.Id == id); 
-            
+            Post deletable = db.Posts.First(p => p.Id == id);
+
             db.Posts.Remove(deletable);
+
+
 
             db.SaveChanges();
 

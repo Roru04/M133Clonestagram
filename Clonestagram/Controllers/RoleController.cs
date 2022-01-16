@@ -11,6 +11,7 @@ namespace Clonestagram.Controllers
     [Authorize(Roles = nameof(Role.Administrator))]
     public class RoleController : Controller
     {
+        log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: Role
         public ActionResult Index()
@@ -78,17 +79,20 @@ namespace Clonestagram.Controllers
 
 
                         userFromDb.Roles.Add(userRole);
-                        userFromDb.Roles.Add(userRole);
-                        userFromDb.Roles.Add(userRole);
-                        userFromDb.Roles.Add(userRole);
-                        
+
+                        _log.Info($"{userRole.UserId} got the role {userRole.RoleId} added in Roles");
+
+
                     }
                     
 
                 }
 
                 db.SaveChanges();
+                
+                
             }
+            
 
 
             return RedirectToAction("Index", "Home");

@@ -12,6 +12,7 @@ namespace Clonestagram.Controllers
     public class CommentController : Controller
     {
         public ApplicationDbContext db = new ApplicationDbContext();
+        log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         [Authorize]
         // GET: Comment
@@ -56,6 +57,7 @@ namespace Clonestagram.Controllers
                 ViewBag.WasPostingSuccess = false;
                 if (ModelState.IsValid)
                 {
+                    _log.Error(ex.Message);
                     return View(comment);
                 }
                 else
@@ -68,6 +70,7 @@ namespace Clonestagram.Controllers
             ViewBag.WasPostingSuccess = true;
             if (ModelState.IsValid)
             {
+                _log.Info($"Post with Id {commentForDb.Id} created form user {User.Identity.GetUserId()}");
                 return RedirectToAction("Index", new { id = commentForDb.PostId });
             }
             else
