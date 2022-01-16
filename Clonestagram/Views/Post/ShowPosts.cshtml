@@ -3,6 +3,16 @@
 <h2>ShowPosts</h2>
 <hr />
 <p><a href="/Post/SortLikes" class="btn btn-primary">Sort by likes</a></p>
+
+@using (Html.BeginForm("SearchPost", "Post", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+{
+
+
+    <p>
+        <span>Title: </span><input type="text" name="querry"/>
+        <input type="submit" value="Filter" />
+    </p>
+}
 <br />
 <br />
 @if (Model != null)

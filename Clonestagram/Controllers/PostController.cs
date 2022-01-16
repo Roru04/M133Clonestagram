@@ -16,6 +16,8 @@ namespace Clonestagram.Controllers
         public ApplicationDbContext db = new ApplicationDbContext();
         log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+
+        //Must be logged in
         [Authorize]
         // GET: Post
         public ActionResult Index(bool? hasPosted = null)
@@ -26,6 +28,7 @@ namespace Clonestagram.Controllers
 
         }
         [HttpPost]
+        //Save a new post in the db
         public ActionResult Index(Post post)
         {
             Post postForDb = new Post();
@@ -71,6 +74,7 @@ namespace Clonestagram.Controllers
 
         [Authorize]
         [HttpGet]
+        //Displays all posts
         public ActionResult ShowPosts() 
         {
             using(ApplicationDbContext context = new ApplicationDbContext())
@@ -80,6 +84,7 @@ namespace Clonestagram.Controllers
             }
         }
 
+        //function to like posts
         public ActionResult Like(int id)
         {
             try
@@ -100,6 +105,7 @@ namespace Clonestagram.Controllers
         }
 
         [HttpGet]
+        //displays all likes but sorted by the likes
         public ActionResult SortLikes()
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
@@ -109,8 +115,9 @@ namespace Clonestagram.Controllers
             }
         }
 
-
+        //only Administrators can call this site
         [Authorize(Roles = nameof(Role.Administrator))]
+        //delete posts from the db
         public ActionResult DeletePost(int id)
         {
             Post deletable = db.Posts.First(p => p.Id == id);
@@ -124,6 +131,33 @@ namespace Clonestagram.Controllers
             return RedirectToAction("ShowPosts");
         }
 
+        
+        [HttpGet]
+        //search for posts
+        public ActionResult SearchPost(string querry)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                IEnumerable<Post> postfromdb = db.Posts.ToList();
+
+                List<Post> postList = new List<Post>();
+
+                foreach(Post post in postfromdb)
+                {
+                    if(post.Title.Contains(querry) == true)
+                    {
+                        postList.Add(post);
+                    }
+                }
+
+                IEnumerable<Post> allPosts = postList;
+                     
+
+                return View("ShowPosts", allPosts);
+            }
+        }
+
+        //close dbConnection
         protected override void Dispose(bool disposing)
         {
             if (db != null)

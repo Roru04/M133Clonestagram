@@ -8,12 +8,14 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Clonestagram.Controllers
 {
+    //only the admin can go on this Controller
     [Authorize(Roles = nameof(Role.Administrator))]
     public class RoleController : Controller
     {
         log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: Role
+        //displays all users for the admin
         public ActionResult Index()
         {
             List<ApplicationUser> allUsers = db.Users.ToList();
@@ -56,7 +58,7 @@ namespace Clonestagram.Controllers
         }
 
         [HttpPost]
-
+        //save new roles in the db
         public ActionResult Index(List<UserViewModel> userViewModels)
         {
             foreach (UserViewModel userViewModel in userViewModels)
@@ -98,6 +100,7 @@ namespace Clonestagram.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        //close db connection
         protected override void Dispose(bool disposing)
         {
             if (db != null)
