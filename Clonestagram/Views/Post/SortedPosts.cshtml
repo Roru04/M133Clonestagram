@@ -15,7 +15,7 @@
             <p>@post.Content</p>
             @Html.ActionLink("Delete", "DeletePost", "Post", new { id = post.Id }, new { @class = "btn btn-default" })
             @Html.ActionLink("Like", "Like", "Post", new { id = post.Id }, new { @class = "btn btn-default" })
-            @Html.ActionLink("Comment", "Index", "Comment", new { id = post.Id }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Comment", "NewComment", "Comment", new { id = post.Id }, new { @class = "btn btn-default" })
             <p>@post.Likes Likes | @post.Comments Comments</p>
 
 

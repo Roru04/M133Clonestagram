@@ -68,7 +68,7 @@ namespace Clonestagram.Controllers
             ViewBag.WasPostingSuccess = true;
             if (ModelState.IsValid)
             {
-                return View(comment);
+                return RedirectToAction("Index", new { id = commentForDb.PostId });
             }
             else
             {
@@ -77,6 +77,13 @@ namespace Clonestagram.Controllers
 
         }
 
-
+        protected override void Dispose(bool disposing)
+        {
+            if (db != null)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

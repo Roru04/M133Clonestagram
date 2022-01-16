@@ -93,5 +93,14 @@ namespace Clonestagram.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (db != null)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
