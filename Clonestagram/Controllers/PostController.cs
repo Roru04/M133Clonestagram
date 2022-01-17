@@ -137,7 +137,7 @@ namespace Clonestagram.Controllers
 
             db.Posts.Remove(deletable);
 
-
+            _log.Info($"User {User.Identity.GetUserId()} has deleted the post {deletable.Id}");
 
             db.SaveChanges();
 
@@ -159,9 +159,10 @@ namespace Clonestagram.Controllers
 
                 List<Post> postList = new List<Post>();
 
+                querry = querry.ToLower();
                 foreach(Post post in postfromdb)
                 {
-                    if(post.Title.Contains(querry) == true)
+                    if(post.Title.ToLower().Contains(querry) == true)
                     {
                         postList.Add(post);
                     }
