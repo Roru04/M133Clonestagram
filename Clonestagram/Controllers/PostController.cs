@@ -84,7 +84,11 @@ namespace Clonestagram.Controllers
             }
         }
 
-        //function to like posts
+        /// <summary>
+        /// function to like posts
+        /// </summary>
+        /// <param name="id">Id of Post</param>
+        /// <returns></returns>
         public ActionResult Like(int id)
         {
             try
@@ -104,6 +108,10 @@ namespace Clonestagram.Controllers
             return RedirectToAction("ShowPosts");
         }
 
+        /// <summary>
+        /// Returns all posts sorted by the number of likes
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         //displays all likes but sorted by the likes
         public ActionResult SortLikes()
@@ -114,10 +122,15 @@ namespace Clonestagram.Controllers
                 return View("SortedPosts",allPosts);
             }
         }
+        
 
         //only Administrators can call this site
         [Authorize(Roles = nameof(Role.Administrator))]
-        //delete posts from the db
+        /// <summary>
+        /// Delete a post
+        /// </summary>
+        /// <param name="id">Id of the post</param>
+        /// <returns></returns>
         public ActionResult DeletePost(int id)
         {
             Post deletable = db.Posts.First(p => p.Id == id);
@@ -131,7 +144,11 @@ namespace Clonestagram.Controllers
             return RedirectToAction("ShowPosts");
         }
 
-        
+        /// <summary>
+        /// Search for a post
+        /// </summary>
+        /// <param name="querry">input in the sesarch field</param>
+        /// <returns></returns>
         [HttpGet]
         //search for posts
         public ActionResult SearchPost(string querry)

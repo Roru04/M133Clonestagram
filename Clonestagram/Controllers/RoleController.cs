@@ -15,7 +15,11 @@ namespace Clonestagram.Controllers
         log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: Role
-        //displays all users for the admin
+        /// <summary>
+        /// displays all users or the users which are searched for
+        /// </summary>
+        /// <param name="querry">input in the search fied</param>
+        /// <returns></returns>
         public ActionResult Index(string querry = "")
         {
             
@@ -79,6 +83,11 @@ namespace Clonestagram.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Save new roles in Db
+        /// </summary>
+        /// <param name="userViewModels">Viewmodel which containes users and roles</param>
+        /// <returns></returns>
         [HttpPost]
         //save new roles in the db
         public ActionResult Index(List<UserViewModel> userViewModels)
@@ -123,60 +132,7 @@ namespace Clonestagram.Controllers
         }
 
 
-        // GET: Role
-        //displays all users for the admin
-        public ActionResult SearchUser(string querry)
-        {
-            List<ApplicationUser> usersDB = db.Users.ToList();
-            List<IdentityRole> allRoles = db.Roles.ToList();
-            List<UserViewModel> model = new List<UserViewModel>();
-
-            List<ApplicationUser> allUsers = new List<ApplicationUser>();
-
-            foreach(ApplicationUser user in usersDB)
-            {
-                if (user.Email.Contains(querry))
-                {
-                    allUsers.Add(user);
-                }
-            }
-
-
-            foreach (ApplicationUser user in allUsers)
-            {
-                List<RoleViewModel> rolls = new List<RoleViewModel>();
-                foreach (IdentityRole identityRole in allRoles)
-                {
-                    bool hasRole = false;
-                    foreach (IdentityUserRole userRole in user.Roles)
-                    {
-                        if (userRole.RoleId == identityRole.Id)
-                        {
-                            hasRole = true;
-                        }
-                    }
-
-                    RoleViewModel role = new RoleViewModel
-                    {
-                        RoleId = identityRole.Id,
-                        HasRole = hasRole
-                    };
-
-                    rolls.Add(role);
-                }
-
-                UserViewModel aUser = new UserViewModel
-                {
-                    UserId = user.Id,
-                    Username = user.Email,
-                    Roles = rolls
-                };
-                model.Add(aUser);
-
-            }
-            return View("Index", model);
-        }
-
+        
         //close db connection
         protected override void Dispose(bool disposing)
         {

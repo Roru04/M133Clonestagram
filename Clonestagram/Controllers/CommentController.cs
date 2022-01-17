@@ -14,6 +14,11 @@ namespace Clonestagram.Controllers
         public ApplicationDbContext db = new ApplicationDbContext();
         log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+        /// <summary>
+        /// You can see ale Comments
+        /// </summary>
+        /// <param name="id">id of Post</param>
+        /// <returns></returns>
         [Authorize]
         // GET: Comment
         public ActionResult Index(int id)
@@ -26,6 +31,11 @@ namespace Clonestagram.Controllers
 
         } 
 
+        /// <summary>
+        /// Site for makeing a new Comment
+        /// </summary>
+        /// <param name="id">Id of Post</param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult NewComment(int id)
         {
@@ -35,6 +45,12 @@ namespace Clonestagram.Controllers
             return View(comment);
         }
 
+
+        /// <summary>
+        /// Saves Comment in db
+        /// </summary>
+        /// <param name="comment">comment which will be saved</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult NewComment(Comment comment)
         {
