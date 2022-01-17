@@ -1,5 +1,7 @@
 namespace Clonestagram.Migrations
 {
+    using Clonestagram.Models;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -15,10 +17,14 @@ namespace Clonestagram.Migrations
 
         protected override void Seed(Clonestagram.Models.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
+            ApplicationUser admin =
+            context.Users.SingleOrDefault(u => u.Email == "a@b.c");
+            IdentityRole adminRole =
+            context.Roles.Single(r => r.Name == Role.Administrator.ToString());
+            if (admin != null && !admin.Roles.Any())
+            {
+                admin.Roles.Add(new IdentityUserRole { RoleId = adminRole.Id });
+            }
         }
     }
 }
