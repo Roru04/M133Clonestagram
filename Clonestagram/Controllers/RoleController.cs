@@ -16,16 +16,38 @@ namespace Clonestagram.Controllers
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: Role
         //displays all users for the admin
-        public ActionResult Index()
+        public ActionResult Index(string querry = "")
         {
-            List<ApplicationUser> allUsers = db.Users.ToList();
+            
+            List<ApplicationUser> usersDB = db.Users.ToList();
             List<IdentityRole> allRoles = db.Roles.ToList();
             List<UserViewModel> model = new List<UserViewModel>();
+            List<ApplicationUser> allUsers = new List<ApplicationUser>();
 
-            foreach(ApplicationUser user in allUsers)
+         
+
+            if (querry != "")
+            {
+                
+
+                foreach (ApplicationUser user in usersDB)
+                {
+                    if (user.Email.Contains(querry))
+                    {
+                        allUsers.Add(user);
+                    }
+                }
+               
+            }
+            else
+            {
+                allUsers = db.Users.ToList();
+            }
+
+            foreach (ApplicationUser user in allUsers)
             {
                 List<RoleViewModel> rolls = new List<RoleViewModel>();
-                foreach(IdentityRole identityRole in allRoles)
+                foreach (IdentityRole identityRole in allRoles)
                 {
                     bool hasRole = false;
                     foreach (IdentityUserRole userRole in user.Roles)
@@ -52,7 +74,7 @@ namespace Clonestagram.Controllers
                     Roles = rolls
                 };
                 model.Add(aUser);
-                
+
             }
             return View(model);
         }
@@ -86,18 +108,73 @@ namespace Clonestagram.Controllers
 
 
                     }
-                    
+
 
                 }
 
                 db.SaveChanges();
-                
-                
+
+
             }
-            
+
 
 
             return RedirectToAction("Index", "Home");
+        }
+
+
+        // GET: Role
+        //displays all users for the admin
+        public ActionResult SearchUser(string querry)
+        {
+            List<ApplicationUser> usersDB = db.Users.ToList();
+            List<IdentityRole> allRoles = db.Roles.ToList();
+            List<UserViewModel> model = new List<UserViewModel>();
+
+            List<ApplicationUser> allUsers = new List<ApplicationUser>();
+
+            foreach(ApplicationUser user in usersDB)
+            {
+                if (user.Email.Contains(querry))
+                {
+                    allUsers.Add(user);
+                }
+            }
+
+
+            foreach (ApplicationUser user in allUsers)
+            {
+                List<RoleViewModel> rolls = new List<RoleViewModel>();
+                foreach (IdentityRole identityRole in allRoles)
+                {
+                    bool hasRole = false;
+                    foreach (IdentityUserRole userRole in user.Roles)
+                    {
+                        if (userRole.RoleId == identityRole.Id)
+                        {
+                            hasRole = true;
+                        }
+                    }
+
+                    RoleViewModel role = new RoleViewModel
+                    {
+                        RoleId = identityRole.Id,
+                        HasRole = hasRole
+                    };
+
+                    rolls.Add(role);
+                }
+
+                UserViewModel aUser = new UserViewModel
+                {
+                    UserId = user.Id,
+                    Username = user.Email,
+                    Roles = rolls
+                };
+                model.Add(aUser);
+
+            }
+            return View("Index", model);
         }
 
         //close db connection

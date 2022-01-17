@@ -1,5 +1,15 @@
 ﻿@model List<Clonestagram.Models.UserViewModel>
 
+@using (Html.BeginForm("Index", "Role", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+{
+
+
+    <p>
+        <span>Title: </span><input type="text" name="querry" />
+        <input type="submit" value="Filter" />
+    </p>
+}
+
 @using (Html.BeginForm())
 {
     <table>
@@ -9,7 +19,6 @@
                     E-Mail
                 </th>
                 <th>Admin</th>
-                <th>ControlManager</th>
             </tr>
         </thead>
         <tbody>
